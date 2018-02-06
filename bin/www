@@ -1,14 +1,17 @@
 import debug from 'debug';
 import http from 'http';
+import {execute, subscribe} from 'graphql';
+import {SubscriptionServer} from 'subscriptions-transport-ws';
 import app from '../app';
-import redis from '../data/redis';
+import {client} from '../data/redis';
+import schema from '../data/schema';
 
 const logger = debug('redis-pubsub:server');
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 const server = http.createServer(app);
 
-redis
+client
     .connect(() => logger("Redis connected"))
     .then(() => {
         server.listen(port);
@@ -75,4 +78,12 @@ function onListening() {
         ? 'pipe ' + addr
         : 'port ' + addr.port;
     logger('Listening on ' + bind);
+    return new SubscriptionServer({
+        schema,
+        execute,
+        subscribe
+    }, {
+        server: server,
+        path: '/subscriptions',
+    });
 }

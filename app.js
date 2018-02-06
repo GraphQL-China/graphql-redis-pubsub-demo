@@ -1,22 +1,26 @@
 import express from 'express';
-import expressGraphQL from 'express-graphql';
+import bodyParser from 'body-parser';
+import {graphiqlExpress, graphqlExpress} from 'apollo-server-express';
 import morgan from 'morgan';
-
-import client from './data/redis';
+import {client, pubsub} from './data/redis';
 import schema from './data/schema';
 
 const logger = morgan('dev');
 
 const app = express();
 app.use(logger);
-
-app.use('/graphql', expressGraphQL({
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+app.use('/graphql', graphqlExpress({
     schema: schema,
-    graphiql: true,
     context: {
-        client
-    },
-    pretty: true
+        client,
+        pubsub,
+    }
+}));
+app.get('/graphiql', graphiqlExpress({
+    endpointURL: '/graphql',
+    subscriptionsEndpoint: 'ws://localhost:3000/subscriptions'
 }));
 
 export default app;

@@ -1,11 +1,12 @@
 import {GraphQLError} from 'graphql';
 
 export default function (ctx) {
-    const {client} = ctx;
+    const {client, pubsub} = ctx;
 
     function set(v) {
         return client.set('dish', JSON.stringify(v)).then((result) => {
             if (result === 'OK') {
+                pubsub.publish('updated', v);
                 return v;
             } else {
                 return new GraphQLError('failed to store data into redis: ' + result);
