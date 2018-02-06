@@ -6,10 +6,10 @@
 3. run `yarn && yarn start`
 4. open your brower with [this link](http://localhost:3000/graphiql)
 
-## currently problem
-1. `subscriptions-transport-ws` does not tackle the `context` correctly
-2. `graphiqlExpress` in `apollo-server-express` does not tackle multiple operation names correctly with `subscription`
+## current problems
+1. `subscriptions-transport-ws` does not tackle the `context` correctly, [link](https://github.com/apollographql/subscriptions-transport-ws/issues/300)
+2. `graphiqlExpress` in `apollo-server-express` does not tackle multiple operation names correctly with `subscription`, [link](https://github.com/graphql/graphiql/issues/605)
 
-## todo
-1. fix the `context` problem
-2. fix the `multiple operation` problem
+## todos
+1. wait for fixture of the `context` problem
+2. wait for fixture of the `multiple operation` problem
