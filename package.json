@@ -1,0 +1,30 @@
+{
+  "name": "graphql-redis-pubsub-demo",
+  "version": "0.0.1",
+  "main": "index.js",
+  "author": "Jonir Rings <peterpuyi@live.cn>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.2",
+    "express-graphql": "^0.6.11",
+    "graphiql": "^0.11.11",
+    "graphql": "^0.11.0",
+    "graphql-redis-subscriptions": "^1.4.0",
+    "graphql-relay": "^0.5.4",
+    "graphql-subscriptions": "^0.5.6",
+    "ioredis": "^3.2.2",
+    "prop-types": "^15.6.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "subscriptions-transport-ws": "^0.9.5"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "debug": "^3.1.0",
+    "morgan": "^1.9.0"
+  },
+  "scripts": {
+    "start": "babel-node ./bin/www"
+  }
+}
