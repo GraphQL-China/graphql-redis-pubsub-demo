@@ -84,6 +84,6 @@ function onListening() {
         subscribe
     }, {
         server: server,
-        path: '/subscriptions',
+        path: '/graphql',
     });
 }
