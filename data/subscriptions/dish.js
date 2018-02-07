@@ -1,15 +1,32 @@
 import {dish as DishType} from '../type';
-import {dish as DishModel} from '../models'
-import {client, pubsub} from '../redis'; // for apollo implementation it did not share the schema ctx
+import {pubsub} from '../redis';
 
-const dishField = {
+const dishCreated = {
     type: DishType,
     resolve(source, args, context, info) {
-        return DishModel({pubsub, client}).get();
+        return source;
     },
     subscribe(source, args, context, info) {
-        return pubsub.asyncIterator('updated');
+        return pubsub.asyncIterator('dishCreated');
+    }
+};
+const dishUpdated = {
+    type: DishType,
+    resolve(source, args, context, info) {
+        return source;
+    },
+    subscribe(source, args, context, info) {
+        return pubsub.asyncIterator('dishUpdated');
+    }
+};
+const dishDestroyed = {
+    type: DishType,
+    resolve(source, args, context, info) {
+        return source;
+    },
+    subscribe(source, args, context, info) {
+        return pubsub.asyncIterator('dishDestroyed');
     }
 };
 
-export default dishField;
+export {dishCreated, dishUpdated, dishDestroyed};

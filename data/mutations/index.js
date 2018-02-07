@@ -1,10 +1,12 @@
 import {GraphQLObjectType,} from 'graphql';
-import dish from './dish';
+import {createDish, destroyDish, updateDish} from './dish';
 
 export default new GraphQLObjectType({
     name: 'Mutation',
     description: 'root mutation',
     fields: {
-        updateDish: dish
+        updateDish,
+        createDish,
+        destroyDish
     }
 });

@@ -1,4 +1,4 @@
-import {GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLString} from 'graphql';
+import {GraphQLID, GraphQLInt, GraphQLNonNull, GraphQLObjectType, GraphQLString} from 'graphql';
 
 export default new GraphQLObjectType({
     name: 'Dish',
@@ -6,9 +6,15 @@ export default new GraphQLObjectType({
     fields: {
         id: {
             type: new GraphQLNonNull(GraphQLID),
+            description: 'the id of a dish',
         },
         name: {
-            type: new GraphQLNonNull(GraphQLString),
+            type: GraphQLString,
+            description: 'the name of a dish',
+        },
+        price: {
+            type: GraphQLInt,
+            description: 'the price of a dish',
         }
     }
 })

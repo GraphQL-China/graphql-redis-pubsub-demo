@@ -1,12 +1,14 @@
 # graphql-redis-pubsub-demo
 ## About
-this is a demo project which demonstrates `GraphQL` query, mutation and subscription with `reids`
+this is a demo project which demonstrates `GraphQL` query, mutation and subscription with `ORM` and `redis`
 
 ## Getting Started
-1. start your local **redis** server
-2. cd to this project directory
-3. run `yarn && yarn start`
-4. open your brower with [apollo-graphiql](http://localhost:3000/graphiql) or [graphcool-playground](http://localhost:3000/playground) (recommended)
+1. make sure your local **redis** server is running
+2. make sure your local **mysql** server is running
+3. change the db connection(`./data/sequelize.js`) according to your own configuration
+4. cd to this project directory
+5. set environment variable `DEBUG` to `redis-pubsub:*` and run `yarn && yarn start`
+6. open your brower with [apollo-graphiql](http://localhost:3000/graphiql) or [graphcool-playground](http://localhost:3000/playground) (recommended)
 
 ## Current Problems
 1. `subscriptions-transport-ws` does not tackle the `context` correctly, [link](https://github.com/apollographql/subscriptions-transport-ws/issues/300)

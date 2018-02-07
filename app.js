@@ -4,6 +4,7 @@ import {graphiqlExpress, graphqlExpress} from 'apollo-server-express';
 import expressPlayground from 'graphql-playground-middleware-express';
 import morgan from 'morgan';
 import {client, pubsub} from './data/redis';
+import sequelize from './data/sequelize';
 import schema from './data/schema';
 
 const logger = morgan('dev');
@@ -17,11 +18,12 @@ app.use('/graphql', graphqlExpress({
     context: {
         client,
         pubsub,
+        sequelize
     }
 }));
 app.get('/graphiql', graphiqlExpress({
     endpointURL: '/graphql',
-    subscriptionsEndpoint: 'ws://localhost:3000/subscriptions'
+    subscriptionsEndpoint: 'ws://localhost:3000/graphql'
 }));
 app.get('/playground', expressPlayground({
     endpoint: '/graphql',

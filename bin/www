@@ -4,6 +4,7 @@ import {execute, subscribe} from 'graphql';
 import {SubscriptionServer} from 'subscriptions-transport-ws';
 import app from '../app';
 import {client} from '../data/redis';
+import sequelize from '../data/sequelize';
 import schema from '../data/schema';
 
 const logger = debug('redis-pubsub:server');
@@ -13,6 +14,7 @@ const server = http.createServer(app);
 
 client
     .connect(() => logger("Redis connected"))
+    .then(() => sequelize.sync())
     .then(() => {
         server.listen(port);
         server.on('error', onError);

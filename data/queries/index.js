@@ -1,10 +1,10 @@
 import {GraphQLObjectType} from 'graphql';
-import dish from './dish';
+import retrieveDish from './dish';
 
 export default new GraphQLObjectType({
     name: 'Query',
     description: 'root query',
     fields: {
-        dish
+        retrieveDish
     }
 })

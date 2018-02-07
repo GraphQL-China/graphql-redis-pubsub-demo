@@ -1,27 +1,34 @@
-import {GraphQLError} from 'graphql';
+import Sequelize from 'sequelize';
+import Model from '../sequelize';
+import {pubsub} from '../redis';
 
-export default function (ctx) {
-    const {client, pubsub} = ctx;
-
-    function set(v) {
-        return client.set('dish', JSON.stringify(v)).then((result) => {
-            if (result === 'OK') {
-                pubsub.publish('updated', v);
-                return v;
-            } else {
-                return new GraphQLError('failed to store data into redis: ' + result);
-            }
-        });
+const dishModel = Model.define("dish", {
+    id: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV1,
+        primaryKey: true,
+    },
+    name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
+    price: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 0
     }
-
-    function get() {
-        return client.get('dish')
-            .then(v => JSON.parse(v))
-            .catch(err => new GraphQLError('failed to get data from redis: ' + err));
+}, {
+    hooks: {
+        afterCreate(instance, options) {
+            pubsub.publish('dishCreated', instance);
+        },
+        afterDestroy(instance, options) {
+            pubsub.publish('dishDestroyed', instance);
+        },
+        afterUpdate(instance, options) {
+            pubsub.publish('dishUpdated', instance);
+        },
     }
+});
 
-    return {
-        get,
-        set
-    }
-}
+export default dishModel;

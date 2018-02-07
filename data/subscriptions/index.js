@@ -1,10 +1,12 @@
 import {GraphQLObjectType} from 'graphql';
-import dish from './dish';
+import {dishCreated, dishDestroyed, dishUpdated} from './dish';
 
 export default new GraphQLObjectType({
     name: 'Subscription',
     description: 'root subscription',
     fields: {
-        updatedDish: dish,
+        dishUpdated,
+        dishCreated,
+        dishDestroyed,
     },
 });
