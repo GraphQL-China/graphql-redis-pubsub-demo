@@ -13,3 +13,7 @@
 ## todos
 1. wait for fixture of the `context` problem
 2. wait for fixture of the `multiple operation` problem
+
+## branches
+
+1. `mysql` branch: use with `sequelize` orm and `mysql` (I prefer `mariadb`)
