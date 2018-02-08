@@ -17,6 +17,7 @@ const sequelize = new Sequelize('thor', 'thor', 'Mjollnir42%', {
         'underscored': true,
         'charset': 'utf8mb4'
     },
+    operatorsAliases: false,
     pool: {
         max: 5,
         min: 0,
